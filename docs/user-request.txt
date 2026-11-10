@@ -1,0 +1,185 @@
+Assignment: Containerization, Image Optimization, and Orchestration Deployment
+[Public copy: LMS grade, attempt, and scheduling metadata omitted. Assignment instructions below are unchanged.]
+
+Objective & Overview
+Packaging an application into an OCI container image and orchestrating it across a cluster are standard operational tasks for modern software architects. However, when developers rely on AI tools to draft container configurations, LLMs frequently introduce anti-patterns:
+
+Creating bloated, single-stage images containing full build tools and compilers.
+Running processes as the privileged root user.
+Storing sensitive environment variables directly in Dockerfiles or Pod manifests.
+Omitting liveness/readiness health probes, which breaks zero-downtime rolling updates.
+In this assignment, you will:
+
+Use an AI tool to generate a functional starter web application, an optimized Dockerfile, and an orchestration manifest (e.g., Docker Compose multi-service deployment or Kubernetes Minikube Deployment/Service manifests).
+Audit and verify the AI-generated artifacts against container security and performance best practices (multi-stage builds, non-root users, resource constraints, and health probes).
+Deploy and orchestrate the application to verify scaling, rolling updates, and self-healing.
+Execute a structured Web Project QA test suite to prove container health and application availability.
+Submit your GitHub repository, live URL (or cluster access evidence), AI prompt log, and a video walkthrough demonstrating functionality and testing.
+Step-by-Step Instructions
+Step 1: Prompt the AI for an Initial Draft
+Students can build a lightweight web application in any language (Node.js, Python FastAPI/Flask, Go, etc.) and deploy it using Docker Compose or Kubernetes (Minikube / Kind / K3s).
+
+Sample Initial Prompt for Students to Copy & Adapt:
+
+Act as a senior DevOps and cloud infrastructure architect. I need to containerize and orchestrate a lightweight web application (e.g., Node.js, Python FastAPI, or Go).
+
+The deliverable must include:
+
+A production-ready Dockerfile:
+   - Uses a lightweight base image (e.g., Alpine or Distroless).
+
+   - Implements a multi-stage build to keep the final image minimal.
+
+   - Follows security best practices (e.g., runs as a non-root user, minimal layers, no cached package manager files).
+
+   - Exposes a health check endpoint (/healthz).
+
+An Orchestration Manifest (Choose Option A or Option B):
+   - Option A (Docker Compose): Multi-replica web service with CPU/memory limits, health checks, restart policies, and an environment file (.env).
+
+   - Option B (Kubernetes / Minikube): Deployment manifest with at least 2 replicas, resource requests/limits, Liveness/Readiness probes, and a NodePort or ClusterIP + Ingress Service manifest.
+
+Minimal Application Code:
+   - A basic web server with a landing page, a health-check endpoint (/healthz), and an endpoint displaying server runtime metadata (e.g., hostname/container ID and uptime).
+
+ 
+
+Provide the Dockerfile, the orchestration YAML files, the application code, and clear terminal commands to build, run, and scale the system.
+
+ 
+
+Step 2: Audit & Verify the AI Output (Container Reality Check)
+Before building and deploying your container, inspect the AI's output against this Containerization & Orchestration Audit Checklist:
+
+Multi-Stage Build & Layer Caching: Did the AI copy all source code before running dependency installations (e.g., COPY . . before npm install or pip install)?
+Correction: Dependency files (package.json, requirements.txt, go.mod) must be copied first to maximize Docker layer caching during rebuilds.
+Least Privilege (Non-Root User): Does the container run as the default root user?
+Correction: Verify that an explicit non-root user is created and declared via USER <username> before the entrypoint executes.
+Image Bloat & Base Images: Did the AI pull an unpinned or massive base image (e.g., FROM python:latest or FROM node:latest which can exceed 1 GB)?
+Correction: Switch to a slim, pinned tag (e.g., python:3.11-slim, node:20-alpine, or a multi-stage distroless build).
+Resource Limits & Probes: Did the orchestration manifest define CPU and memory limits/requests? Did it configure health probes?
+Correction: Add limits and requests (in Kubernetes) or deploy.resources.limits (in Docker Compose) to prevent noisy-neighbor container memory leaks from crashing the host.
+Step 3: Web Project Testing & Quality Assurance (QA) Checklist
+Run your containerized application through this QA framework. You will demonstrate these live in your recording:
+
+[ ] 1. Container Image & Build Verification:
+Image builds cleanly without warnings or errors.
+Image inspection (docker images) proves the final image is lean and properly tagged.
+Inspecting the container process (docker top or ps) verifies it is running as a non-root user.
+[ ] 2. Functional & Endpoint Testing:
+The main web page loads in the browser or terminal (curl) with clean status HTTP 200 OK.
+The /healthz endpoint returns a healthy status payload.
+The application displays its dynamic container hostname/pod name.
+[ ] 3. Orchestration & Resilience Testing:
+Scaling: Scale the application up to at least 3 replicas (e.g., docker compose up --scale web=3 or kubectl scale deployment web-app --replicas=3) and verify all pods/containers become healthy.
+Self-Healing / Auto-Restart: Manually stop or kill one container/pod (e.g., docker kill <container_id> or kubectl delete pod <pod_name>). Verify the orchestrator automatically detects the failure and spins up a healthy replacement.
+[ ] 4. Browser Console & Health Check Status:
+DevTools Network tab shows proper HTTP status codes, headers, and response times.
+DevTools Console is free of uncaught frontend errors.
+Video Demonstration Requirements (5 to 7 Minutes)
+Your video must include your screen and webcam/face simultaneously (e.g., recorded via Loom, OBS, Zoom, or Panopto):
+
+0:00 – 1:30 | Architecture & AI Artifact Audit:
+Present your compute deployment architecture. Walk through your Dockerfile and orchestration manifests, highlighting at least one specific security flaw, layer caching issue, or missing configuration you caught in the AI's output and corrected.
+1:30 – 3:00 | Live Build & Functionality Walkthrough:
+Show the build output, image size, and non-root user verification. Launch the application via Docker Compose or Minikube and access the live application in the browser or via curl.
+3:00 – 5:00 | QA Checklist & Orchestration Resilience Testing:
+Walk through the QA Checklist live:
+Demonstrate the health check endpoint responding with 200 OK.
+Demonstrate scaling up replicas on the command line.
+Simulate a container failure by killing an active container/pod and watch the orchestrator self-heal in real time.
+5:00 – 6:30 | Conclusion & Takeaways:
+Summarize the primary trade-offs of containerization (portability and repeatability vs. orchestration complexity and image management overhead).
+Deliverables & Submission Template
+Paste the following into your LMS submission box:
+
+### Week 04 Hands-On Assignment Submission
+
+* **Live Demo URL:** https://your-deployed-app.app (or "N/A - Local Minikube / Docker Compose")
+
+* **GitHub Repository:** https://github.com/your-username/week04-container-orchestration
+
+* **Video Demonstration:** https://youtu.be/your-video-id (Unlisted or Public)
+
+ 
+
+#### Video Timestamps:
+
+* 0:00 - Architecture Overview & AI Dockerfile Audit
+
+* 1:30 - Live Build & Image Inspection (Non-Root Verification)
+
+* 3:00 - Orchestration Deployment & Health Checks
+
+* 4:15 - QA Testing: Replica Scaling & Self-Healing Simulation
+
+* 5:45 - Conclusion & Compute Strategy Reflection
+
+ 
+
+GitHub Repository README.md Requirements
+Your repository's README.md must include:
+
+Project Title & Architecture Overview: Brief description of the app, base image choices, and orchestration strategy.
+Prerequisites & Run Guide: Exact commands to:
+Build the Docker image.
+Start the orchestration stack (docker compose up or kubectl apply -f).
+Access the application locally or verify pod health.
+Tear down the environment.
+AI Disclosure & Prompt Appendix:
+AI tool(s) used (ChatGPT, Claude, Gemini, etc.).
+The exact prompts submitted.
+A summary of what the AI produced correctly versus what anti-patterns (e.g., root execution, large images, missing resource limits) you had to manually patch.
+QA Checklist Summary: A completed checklist documenting image inspection, scaling tests, and self-healing verification.
+ 
+
+Grading Rubric (Total: 100 Points)
+Criteria
+
+Exceptional (Full Points)
+
+Proficient
+
+Needs Revision
+
+Dockerfile Optimization & Security (25 pts)
+
+Multi-stage build implemented; uses a pinned lightweight base; runs as a non-root user; layers ordered efficiently to leverage build caching; no secrets leaked.
+
+Builds successfully and runs, but misses one best practice (e.g., single-stage build, unpinned base tag, or inefficient layer caching order).
+
+Heavy, single-stage image running as root; ignores basic caching; or fails to build cleanly.
+
+Orchestration & Resilience (25 pts)
+
+Manifests cleanly define multi-replica deployments with explicit CPU/memory limits, health probes, and restart policies; self-healing and scaling operate seamlessly.
+
+Deploys via Compose/Kubernetes, but lacks resource limits, health probes, or fails to recover cleanly during manual container termination.
+
+Missing orchestration manifests; runs only as a standalone docker run command with no orchestrator.
+
+AI Audit & README Documentation (15 pts)
+
+README.md thoroughly documents build/run steps, includes exact prompts, and provides a clear critique of the AI’s container hallucinations or security omissions.
+
+README.md includes setup and prompts, but provides minimal reflection on the AI output or configuration verification.
+
+Missing setup instructions, missing prompt logs, or no disclosure of AI usage.
+
+QA Checklist & Live Verification (15 pts)
+
+Video clearly proves all checklist points live: image size/non-root inspection, scaling to multiple replicas, killing a node to verify self-healing, and DevTools/health check validation.
+
+Demonstrates basic deployment in the video, but skips scaling tests, self-healing kill tests, or image inspection.
+
+Skips live testing demonstration or ignores failed container states on screen.
+
+Video Presentation & Presence (20 pts)
+
+Professional webcam + screen recording; clear audio; active camera eye contact; clean visual pacing landing strictly between 5:00 and 7:00 minutes.
+
+Good delivery, but relies heavily on notes, has minor audio issues, or runs slightly under/over the time limit (by 30–60s).
+
+No webcam/face visible, unintelligible audio, reads script verbatim, or significant timing violations (>2 mins off).
+
+ 
