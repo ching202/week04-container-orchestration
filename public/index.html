@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Container Observatory</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header><a class="brand" href="/">CO<span>Container Observatory</span></a><span class="eyebrow">WEEK 04 / CLOUD SYSTEMS</span></header>
+    <section class="hero">
+      <p class="eyebrow">ONE APPLICATION. MANY INSTANCES.</p>
+      <h1>Small image.<br>Resilient service.</h1>
+      <p class="intro">A live view of the instance serving this request. Scale the deployment, replace a pod, and watch the service keep moving.</p>
+      <div class="actions"><button id="refresh" type="button">Refresh instance <span aria-hidden="true">↗</span></button><a href="/healthz">Health endpoint ↗</a></div>
+    </section>
+    <section class="dashboard" aria-label="Runtime metadata">
+      <div class="panel-head"><span class="eyebrow">INSTANCE SNAPSHOT</span><span id="status" class="status" role="status">Connecting</span></div>
+      <div class="identity"><span class="label">Serving pod / hostname</span><strong id="pod">Waiting for response…</strong></div>
+      <div class="metrics">
+        <div><span class="label">Uptime</span><strong id="uptime">—</strong></div>
+        <div><span class="label">Release</span><strong id="version">—</strong></div>
+        <div><span class="label">Process UID</span><strong id="uid">—</strong></div>
+        <div><span class="label">Response time</span><strong id="latency">—</strong></div>
+      </div>
+      <p id="detail" class="detail" aria-live="polite">Fetching live metadata from /metadata.</p>
+    </section>
+    <section class="notes" aria-label="How this demo works">
+      <article><span class="step">01</span><h2>Package once</h2><p>A multi-stage build keeps tests and build scripts outside the runtime image.</p></article>
+      <article><span class="step">02</span><h2>Serve together</h2><p>A Kubernetes Service routes traffic to ready replicas. Connections may reuse the same pod.</p></article>
+      <article><span class="step">03</span><h2>Recover automatically</h2><p>The Deployment replaces deleted pods; the kubelet restarts unhealthy containers.</p></article>
+    </section>
+    <footer><span>Node.js · Kubernetes · OCI</span><a href="/metadata">View raw metadata ↗</a></footer>
+  </main>
+</body>
+</html>
