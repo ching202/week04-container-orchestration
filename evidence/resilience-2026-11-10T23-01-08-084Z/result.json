@@ -1,0 +1,109 @@
+{
+  "startedAt": "2026-11-10T23:01:08.094Z",
+  "context": "kind-week04",
+  "namespace": "week04",
+  "status": "PASS",
+  "tests": {
+    "scaling": {
+      "status": "PASS",
+      "initialReplicas": 2,
+      "finalReplicas": 3,
+      "pods": [
+        {
+          "name": "web-app-68ff665cfc-5vfcv",
+          "uid": "fdab6814-8071-49d3-b65c-ce6f3dfdf9b7",
+          "ready": true
+        },
+        {
+          "name": "web-app-68ff665cfc-m4m8h",
+          "uid": "7a994c21-e52c-4394-92b8-bb6a431bfaf3",
+          "ready": true
+        },
+        {
+          "name": "web-app-68ff665cfc-qkvzz",
+          "uid": "a4e2934e-df01-4b3a-a26c-83f02871c174",
+          "ready": true
+        }
+      ]
+    },
+    "selfHealing": {
+      "status": "PASS",
+      "deletedAt": "2026-11-10T23:01:18.846Z",
+      "recoveryMilliseconds": 7516,
+      "deletedPod": {
+        "name": "web-app-68ff665cfc-5vfcv",
+        "uid": "fdab6814-8071-49d3-b65c-ce6f3dfdf9b7"
+      },
+      "replacementPod": {
+        "name": "web-app-68ff665cfc-92cvf",
+        "uid": "3fb286a5-9ce5-46a8-b7da-6e136afec70e"
+      },
+      "readyReplicas": 3,
+      "http": {
+        "requests": 54,
+        "failures": 0,
+        "startedAt": "2026-11-10T23:01:16.850Z",
+        "endedAt": "2026-11-10T23:01:28.229Z",
+        "distinctPods": [
+          "web-app-68ff665cfc-m4m8h",
+          "web-app-68ff665cfc-qkvzz",
+          "web-app-68ff665cfc-5vfcv",
+          "web-app-68ff665cfc-92cvf"
+        ]
+      }
+    },
+    "rollingUpdate": {
+      "status": "PASS",
+      "type": "Pod-template configuration update; same OCI image",
+      "rolloutStartedAt": "2026-11-10T23:01:30.463Z",
+      "completedAt": "2026-11-10T23:01:58.076Z",
+      "environmentChange": {
+        "name": "DEMO_REVISION",
+        "value": "qa-2026-11-10T23-01-08-084Z"
+      },
+      "beforeRevision": "1",
+      "afterRevision": "2",
+      "imageBefore": "week04-web:1.0.0",
+      "imageAfter": "week04-web:1.0.0",
+      "oldPods": [
+        "web-app-68ff665cfc-92cvf",
+        "web-app-68ff665cfc-m4m8h",
+        "web-app-68ff665cfc-qkvzz"
+      ],
+      "newPods": [
+        "web-app-67d666f44-9dktq",
+        "web-app-67d666f44-jr42k",
+        "web-app-67d666f44-rd5bl"
+      ],
+      "http": {
+        "requests": 162,
+        "failures": 0,
+        "startedAt": "2026-11-10T23:01:28.441Z",
+        "endedAt": "2026-11-10T23:02:03.211Z",
+        "distinctPods": [
+          "web-app-68ff665cfc-qkvzz",
+          "web-app-68ff665cfc-92cvf",
+          "web-app-68ff665cfc-m4m8h",
+          "web-app-67d666f44-9dktq",
+          "web-app-67d666f44-jr42k",
+          "web-app-67d666f44-rd5bl"
+        ]
+      },
+      "minimumObservedAvailableReplicas": 3,
+      "maximumObservedActivePods": 4
+    }
+  },
+  "restored": {
+    "readyReplicas": 2,
+    "image": "week04-web:1.0.0",
+    "http": {
+      "time": "2026-11-10T23:02:25.394Z",
+      "status": 200,
+      "milliseconds": 5,
+      "ok": true,
+      "pod": "web-app-68ff665cfc-7k9g5",
+      "version": "1.0.0"
+    }
+  },
+  "finishedAt": "2026-11-10T23:02:25.394Z"
+}
