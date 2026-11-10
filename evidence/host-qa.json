@@ -1,0 +1,73 @@
+{
+  "testedAt": "2026-11-10T21:59:43.207Z",
+  "environment": "Windows host v24.22.1; no container engine",
+  "tests": {
+    "passed": 5,
+    "failed": 0
+  },
+  "packagedAppEndpoints": [
+    {
+      "path": "/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "milliseconds": 21
+    },
+    {
+      "path": "/healthz",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "milliseconds": 5,
+      "body": {
+        "status": "ok"
+      }
+    },
+    {
+      "path": "/readyz",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "milliseconds": 3,
+      "body": {
+        "status": "ready"
+      }
+    },
+    {
+      "path": "/metadata",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "milliseconds": 7,
+      "body": {
+        "hostname": "ShaeC",
+        "pod": "ShaeC",
+        "uptimeSeconds": 0,
+        "version": "1.0.0",
+        "runtime": "v24.22.1",
+        "uid": null,
+        "ready": true
+      }
+    },
+    {
+      "path": "/style.css",
+      "status": 200,
+      "contentType": "text/css; charset=utf-8",
+      "milliseconds": 3
+    },
+    {
+      "path": "/app.js",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8",
+      "milliseconds": 2
+    },
+    {
+      "path": "/favicon.svg",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "milliseconds": 2
+    }
+  ],
+  "yamlSyntax": "PASS",
+  "selectorAndPortConsistency": "PASS",
+  "powershellSyntax": "PASS (separate parser check)",
+  "containerBuild": "NOT RUN: engine unavailable",
+  "cluster": "NOT RUN: no context configured",
+  "browser": "NOT VERIFIED: browser launch failed in sandbox"
+}

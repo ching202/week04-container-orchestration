@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-11-10T23:18:08.9561618Z",
+  "context": "kind-week04",
+  "readyPods": [
+    {
+      "name": "web-app-68ff665cfc-7k9g5",
+      "ready": true,
+      "restarts": 0,
+      "uid": 1000
+    },
+    {
+      "name": "web-app-68ff665cfc-z2cfn",
+      "ready": true,
+      "restarts": 0,
+      "uid": 1000
+    }
+  ],
+  "processes": [
+    "PID   USER     COMMAND",
+    "    1 node     {MainThread} node src/server.mjs",
+    "   25 node     ps -o pid,user,args"
+  ],
+  "browser": {
+    "observedViewportWidth": 414,
+    "documentWidth": 399,
+    "consoleWarningsOrErrors": 0,
+    "mobileScreenshot": "browser-mobile.jpg"
+  }
+}

@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: landing page and every linked asset are served with correct media types
+ok 1 - landing page and every linked asset are served with correct media types
+  ---
+  duration_ms: 50.3995
+  type: 'test'
+  ...
+# Subtest: health and readiness are distinct during graceful draining
+ok 2 - health and readiness are distinct during graceful draining
+  ---
+  duration_ms: 19.8806
+  type: 'test'
+  ...
+# Subtest: metadata reports actual host identity, uptime, and configured release
+ok 3 - metadata reports actual host identity, uptime, and configured release
+  ---
+  duration_ms: 9.7172
+  type: 'test'
+  ...
+# Subtest: HEAD works without a body; unsupported methods and paths are rejected
+ok 4 - HEAD works without a body; unsupported methods and paths are rejected
+  ---
+  duration_ms: 15.8847
+  type: 'test'
+  ...
+# Subtest: security headers permit local assets and forbid embedded frames and objects
+ok 5 - security headers permit local assets and forbid embedded frames and objects
+  ---
+  duration_ms: 3.6292
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 223.4127

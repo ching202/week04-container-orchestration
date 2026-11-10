@@ -1,0 +1,87 @@
+[Public copy: local Windows identity and absolute project path omitted; command results unchanged.]
+**********************
+Windows PowerShell transcript start
+Start time: 20261110174441
+Username: [local identity omitted]
+RunAs User: [local identity omitted]
+Configuration Name: 
+Machine: [local identity omitted]
+Host Application: powershell.exe -NoProfile -ExecutionPolicy Bypass -File [PROJECT]\scripts\deploy.ps1
+Process ID: 43624
+PSVersion: 5.1.26100.9818
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9818
+BuildVersion: 10.0.26100.9818
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+> docker info --format {{.OSType}}
+> kind version
+kind v0.33.0 go1.26.7 windows/amd64
+> kind get clusters
+> docker build --progress=plain -t week04-web:1.0.0 .
+#14 0.431 ℹ pass 5
+#14 0.431 ℹ fail 0
+#14 0.431 ℹ cancelled 0
+#14 0.431 ℹ skipped 0
+#14 0.431 ℹ todo 0
+#14 0.431 ℹ duration_ms 216.155993
+#14 0.479 Packaged src/ and public/ into dist/; tests, docs, and build scripts are excluded.
+#14 DONE 0.5s
+
+#15 [runtime 3/3] COPY --from=build --chown=root:root /build/dist/ ./
+#15 DONE 0.0s
+
+#16 exporting to image
+#16 exporting layers 0.1s done
+#16 exporting manifest sha256:8b0b6c0af7e4dd8de634afbf177977282d9f772bd299472df4847cb68be9dfc9 0.0s done
+#16 exporting config sha256:261c9a759de14c8a2a24e0619b9f05983d4e436a7f894cf491e9e8864fc84387 0.0s done
+#16 exporting attestation manifest sha256:bc5de1f6a1928118a78ca21dc341192c563e20c23bf8cdd6afb579051581ef38 0.0s done
+#16 exporting manifest list sha256:c01c680059a8b288f1f06158ec7b6598a698658bb45cc2f6467edb289e729517 0.0s done
+#16 naming to docker.io/library/week04-web:1.0.0 done
+#16 unpacking to docker.io/library/week04-web:1.0.0
+#16 unpacking to docker.io/library/week04-web:1.0.0 1.5s done
+#16 DONE 1.7s
+> docker image inspect week04-web:1.0.0
+Built image: 232.38 MiB; user 1000:1000
+> docker run --rm --read-only --cap-drop=ALL --security-opt=no-new-privileges --entrypoint id week04-web:1.0.0 -u
+> kind create cluster --name week04 --config kind.yaml --wait 180s
+
+> kubectl --context kind-week04 cluster-info
+
+> kind load docker-image week04-web:1.0.0 --name week04
+
+> kubectl --context kind-week04 apply -f k8s/namespace.yaml
+
+> kubectl --context kind-week04 apply --dry-run=server -f k8s/deployment.yaml -f k8s/service.yaml
+
+> kubectl --context kind-week04 apply -f k8s/deployment.yaml -f k8s/service.yaml
+
+> kubectl --context kind-week04 -n week04 rollout status deployment/web-app --timeout=180s
+
+> kubectl --context kind-week04 -n week04 get pods -l app=web-app -o json
+> kubectl --context kind-week04 -n week04 get pods -o wide
+
+> kubectl --context kind-week04 -n week04 get svc web-app
+
+> kubectl --context kind-week04 -n week04 exec web-app-68ff665cfc-m4m8h -- id -u
+> kubectl --context kind-week04 -n week04 exec web-app-68ff665cfc-m4m8h -- ps -o pid,user,args
+
+> kubectl --context kind-week04 -n week04 exec web-app-68ff665cfc-qkvzz -- id -u
+> kubectl --context kind-week04 -n week04 exec web-app-68ff665cfc-qkvzz -- ps -o pid,user,args
+
+PASS / HTTP 200
+PASS /healthz HTTP 200
+PASS /readyz HTTP 200
+PASS /metadata HTTP 200
+PASS /style.css HTTP 200
+PASS /app.js HTTP 200
+PASS /favicon.svg HTTP 200
+SUCCESS: two healthy replicas are deployed at http://127.0.0.1:8080
+Evidence saved in [PROJECT]\evidence
+**********************
+Windows PowerShell transcript end
+End time: 20261110174626
+**********************

@@ -1,0 +1,59 @@
+﻿{
+    "completedAt":  "2026-11-10T22:46:26.7263903Z",
+    "status":  "PASS",
+    "context":  "kind-week04",
+    "namespace":  "week04",
+    "readyReplicas":  2,
+    "url":  "http://127.0.0.1:8080",
+    "image":  {
+                  "tag":  "week04-web:1.0.0",
+                  "id":  "sha256:c01c680059a8b288f1f06158ec7b6598a698658bb45cc2f6467edb289e729517",
+                  "sizeBytes":  243666281,
+                  "sizeMiB":  232.38,
+                  "configuredUser":  "1000:1000"
+              },
+    "endpoints":  [
+                      {
+                          "path":  "/",
+                          "status":  200,
+                          "contentType":  "text/html; charset=utf-8"
+                      },
+                      {
+                          "path":  "/healthz",
+                          "status":  200,
+                          "contentType":  "application/json; charset=utf-8"
+                      },
+                      {
+                          "path":  "/readyz",
+                          "status":  200,
+                          "contentType":  "application/json; charset=utf-8"
+                      },
+                      {
+                          "path":  "/metadata",
+                          "status":  200,
+                          "contentType":  "application/json; charset=utf-8"
+                      },
+                      {
+                          "path":  "/style.css",
+                          "status":  200,
+                          "contentType":  "text/css; charset=utf-8"
+                      },
+                      {
+                          "path":  "/app.js",
+                          "status":  200,
+                          "contentType":  "text/javascript; charset=utf-8"
+                      },
+                      {
+                          "path":  "/favicon.svg",
+                          "status":  200,
+                          "contentType":  "image/svg+xml"
+                      }
+                  ],
+    "remainingAssignmentChecks":  [
+                                      "Scale to three",
+                                      "Delete and replace a pod",
+                                      "Rolling image update",
+                                      "Browser DevTools QA",
+                                      "Webcam video"
+                                  ]
+}

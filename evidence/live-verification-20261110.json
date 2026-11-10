@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-10",
+  "kind": "Summary of direct post-deployment checks performed by Codex",
+  "deploymentResultReviewed": "deployment-result-20261110-174441.json",
+  "deploymentCompletedAt": "2026-11-10T22:46:26.7263903Z",
+  "liveKubernetesCheck": {
+    "context": "kind-week04",
+    "namespace": "week04",
+    "deployment": "web-app",
+    "readyReplicas": 2,
+    "updatedReplicas": 2,
+    "availableReplicas": 2,
+    "pods": [
+      {"name": "web-app-68ff665cfc-m4m8h", "ready": true, "phase": "Running", "restarts": 0},
+      {"name": "web-app-68ff665cfc-qkvzz", "ready": true, "phase": "Running", "restarts": 0}
+    ],
+    "service": {"type": "NodePort", "port": 80, "nodePort": 30080}
+  },
+  "liveHttpChecks": [
+    {"path": "/", "status": 200, "contentType": "text/html; charset=utf-8"},
+    {"path": "/healthz", "status": 200, "payload": {"status": "ok"}},
+    {"path": "/readyz", "status": 200, "payload": {"status": "ready"}},
+    {"path": "/metadata", "status": 200, "payload": {"hostname": "web-app-68ff665cfc-m4m8h", "pod": "web-app-68ff665cfc-m4m8h", "uptimeSeconds": 143, "version": "1.0.0", "runtime": "v24.22.2", "uid": 1000, "ready": true}}
+  ],
+  "browserCheck": {
+    "url": "http://127.0.0.1:8080/",
+    "title": "Container Observatory",
+    "readyStatusDisplayed": true,
+    "releaseDisplayed": "1.0.0",
+    "uidDisplayed": 1000,
+    "refreshButtonWorked": true,
+    "podBeforeRefresh": "web-app-68ff665cfc-qkvzz",
+    "podAfterRefresh": "web-app-68ff665cfc-m4m8h",
+    "capturedConsoleWarningsAndErrors": [],
+    "visualInspection": "Page rendered in the narrow app browser panel; full responsive QA and recorded DevTools demonstration remain pending."
+  },
+  "scope": "Read-only verification; no scaling, deletion, or rolling update was performed."
+}
