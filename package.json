@@ -1,0 +1,13 @@
+{
+  "name": "container-observatory",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A dependency-free web app for demonstrating Kubernetes orchestration.",
+  "engines": { "node": ">=24 <25" },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "test": "node --test",
+    "build": "node scripts/build.mjs"
+  }
+}
